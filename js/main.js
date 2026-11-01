@@ -131,19 +131,19 @@ function createPhoto(id, url, description, likes, comments) {
     description,
     likes,
     comments
-  }
+  };
 }
 
-function createGallery(COUNT_PHOTOS, MIN_LIKES, MAX_LIKES, MIN_URL_AVATAR, MAX_URL_AVATAR, MESSAGES, NAMES) {
+function createGallery(countphotos, imageDescriptions, minlikes, maxlikes, minurlavatar, maxUrlavatar, messages, names) {
   let gallery = [];
 
-  for (let i = 0; i < COUNT_PHOTOS; i++) {
+  for (let i = 0; i < countphotos; i++) {
     const id = `photos-${i}`;
     const url = `photos/${i}.jpg`;
-    const description = IMAGE_DESCRIPTIONS[getRandomNumberInRange(0, IMAGE_DESCRIPTIONS.length - 1)];
-    const likes = getRandomNumberInRange(MIN_LIKES, MAX_LIKES);
+    const description = imageDescriptions[getRandomNumberInRange(0, imageDescriptions.length - 1)];
+    const likes = getRandomNumberInRange(minlikes, maxlikes);
     const prefixId = id;
-    const comment = createArrayComments(getRandomNumberInRange(0, 30), prefixId, MIN_URL_AVATAR, MAX_URL_AVATAR, MESSAGES, NAMES);
+    const comment = createArrayComments(getRandomNumberInRange(0, 30), prefixId, minurlavatar, maxUrlavatar, messages, names);
 
     gallery.push({
       id,
@@ -157,4 +157,4 @@ function createGallery(COUNT_PHOTOS, MIN_LIKES, MAX_LIKES, MIN_URL_AVATAR, MAX_U
   return gallery;
 }
 
-// console.log(createGallery(COUNT_PHOTOS, MIN_LIKES, MAX_LIKES, MIN_URL_AVATAR, MAX_URL_AVATAR, MESSAGES, NAMES));
+console.log(createGallery(COUNT_PHOTOS, IMAGE_DESCRIPTIONS, MIN_LIKES, MAX_LIKES, MIN_URL_AVATAR, MAX_URL_AVATAR, MESSAGES, NAMES));
