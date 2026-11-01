@@ -135,7 +135,7 @@ function createPhoto(id, url, description, likes, comments) {
 }
 
 function createGallery(countphotos, imageDescriptions, minlikes, maxlikes, minurlavatar, maxUrlavatar, messages, names) {
-  let gallery = [];
+  const gallery = [];
 
   for (let i = 0; i < countphotos; i++) {
     const id = `photos-${i}`;
@@ -145,16 +145,11 @@ function createGallery(countphotos, imageDescriptions, minlikes, maxlikes, minur
     const prefixId = id;
     const comment = createArrayComments(getRandomNumberInRange(0, 30), prefixId, minurlavatar, maxUrlavatar, messages, names);
 
-    gallery.push({
-      id,
-      url,
-      description,
-      likes,
-      comment
-    });
+    gallery.push(createPhoto(id, url, description, likes, comment));
   }
 
   return gallery;
 }
 
+// eslint-disable-next-line no-console
 console.log(createGallery(COUNT_PHOTOS, IMAGE_DESCRIPTIONS, MIN_LIKES, MAX_LIKES, MIN_URL_AVATAR, MAX_URL_AVATAR, MESSAGES, NAMES));
