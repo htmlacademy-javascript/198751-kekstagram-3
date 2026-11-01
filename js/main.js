@@ -1,13 +1,10 @@
-const MIN_ID = 1;
-const MAX_ID = 25;
-const MIN_NUMBER_URL = 1;
-const MAX_NUMBER_URL = 25;
+const COUNT_PHOTOS = 25;
 const MIN_LIKES = 25;
 const MAX_LIKES = 200;
 const MIN_URL_AVATAR = 1;
 const MAX_URL_AVATAR = 6;
 
-const imageDescriptions = [
+const IMAGE_DESCRIPTIONS = [
   'кот-йог в позе лотоса',
   'собака с очками и книгой',
   'бутерброд, убегающий от вилки',
@@ -113,6 +110,20 @@ function createComment(id, avatar, message, name) {
   };
 }
 
+function createArrayComments(count, prefixId, minUrlAvatar, maxUrlAvatar, messages, names) {
+  const array = [];
+
+  if (count <= 0) {
+    return array;
+  }
+
+  for (let i = 0; i < count; i++) {
+    array.push(createComment(`${prefixId}-${i}`, `img/avatar-${getRandomNumberInRange(minUrlAvatar, maxUrlAvatar)}.svg`, messages[getRandomNumberInRange(0, messages.length - 1)], names[getRandomNumberInRange(0, names.length - 1)]));
+  }
+
+  return array;
+}
+
 function createPhoto(id, url, description, likes, comments) {
   return {
     id,
@@ -123,17 +134,27 @@ function createPhoto(id, url, description, likes, comments) {
   }
 }
 
-function shuffleArray(array) {
-  if (!Array.isArray(array)) {
-    throw new TypeError('Ожидается массив');
+function createGallery(COUNT_PHOTOS, MIN_LIKES, MAX_LIKES, MIN_URL_AVATAR, MAX_URL_AVATAR, MESSAGES, NAMES) {
+  let gallery = [];
+
+  for (let i = 0; i < COUNT_PHOTOS; i++) {
+    const id = `photos-${i}`;
+    const url = `photos/${i}.jpg`;
+    const description = IMAGE_DESCRIPTIONS[getRandomNumberInRange(0, IMAGE_DESCRIPTIONS.length - 1)];
+    const likes = getRandomNumberInRange(MIN_LIKES, MAX_LIKES);
+    const prefixId = id;
+    const comment = createArrayComments(getRandomNumberInRange(0, 30), prefixId, MIN_URL_AVATAR, MAX_URL_AVATAR, MESSAGES, NAMES);
+
+    gallery.push({
+      id,
+      url,
+      description,
+      likes,
+      comment
+    });
   }
 
-  newArray = [...array];
-
-  for (let i = array.length - 1; i > 0; i--) {
-    const k = Math.floor(Math.random() * (i + 1));
-    [newArray[i], newArray[k]] = [newArray[k], newArray[i]];
-  }
-
-  return newArray;
+  return gallery;
 }
+
+// console.log(createGallery(COUNT_PHOTOS, MIN_LIKES, MAX_LIKES, MIN_URL_AVATAR, MAX_URL_AVATAR, MESSAGES, NAMES));
