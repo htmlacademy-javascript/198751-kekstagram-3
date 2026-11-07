@@ -10,6 +10,7 @@ function isWithinWorkingDay(startWorkDay, endWorkDay, startMeeting, durationMeet
   startMeeting = parseTime(startMeeting);
   const endMeeting = startMeeting + durationMeeting;
 
+  // можно без двух условий в return одной строкой, но это не читабельно будет.
   if (startMeeting < startWorkDay) {
     return false;
   }
