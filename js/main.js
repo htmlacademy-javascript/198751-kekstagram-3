@@ -7,7 +7,7 @@ const arrayPhotos = createGallery(COUNT_PHOTOS, IMAGE_DESCRIPTIONS, MIN_LIKES, M
 const picturesContainer = document.querySelector('.pictures');
 const picturesListFragment = document.createDocumentFragment();
 
-arrayPhotos.forEach(element => {
+arrayPhotos.forEach((element) => {
   picturesListFragment.append(createPicture(element));
 });
 
