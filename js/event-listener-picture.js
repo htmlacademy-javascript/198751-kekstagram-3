@@ -9,7 +9,7 @@ export function eventListenerPicture(picturesContainer, arrayPhotos, modalElemen
       const link = target.closest('.picture');
       const id = link.id;
 
-      const currentPhoto = arrayPhotos[id]
+      const currentPhoto = arrayPhotos[id];
 
       const bigPictureImages = modalElementPicture.querySelector('.big-picture__img img');
       bigPictureImages.src = currentPhoto.url;
@@ -29,7 +29,7 @@ export function eventListenerPicture(picturesContainer, arrayPhotos, modalElemen
       const socialCommentsList = modalElementPicture.querySelector('.social__comments');
       socialCommentsList.innerHTML = '';
       const commentsListFragment = document.createDocumentFragment();
-      currentPhoto.comments.forEach(element => {
+      currentPhoto.comments.forEach((element) => {
         commentsListFragment.append(createCommentElement(element.avatar, element.name, element.message));
       });
       socialCommentsList.append(commentsListFragment);
