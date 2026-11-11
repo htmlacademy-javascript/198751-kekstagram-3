@@ -38,7 +38,7 @@ export function createGallery(countPhotos, imageDescriptions, minLikes, maxLikes
 
   for (let i = 0; i < countPhotos; i++) {
     const id = i;
-    const url = `photos/${i}.jpg`;
+    const url = `photos/${i + 1}.jpg`;
     const description = imageDescriptions[getRandomNumberInRange(0, imageDescriptions.length - 1)];
     const likes = getRandomNumberInRange(minLikes, maxLikes);
     const comment = createArrayComments(getRandomNumberInRange(0, 30), minUrlAvatar, maxUrlAvatar, messages, names);
