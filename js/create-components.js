@@ -39,3 +39,11 @@ export function createCommentElement(url, author, text) {
 
   return item;
 }
+
+export function createCommentsList(startComments, endComments, commentsList, fragment) {
+  for (let i = startComments; i < endComments; i++) {
+    fragment.append(createCommentElement(commentsList[i].avatar, commentsList[i].name, commentsList[i].message));
+  }
+
+  return fragment;
+}
