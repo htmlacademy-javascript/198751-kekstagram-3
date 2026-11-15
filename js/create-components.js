@@ -1,4 +1,5 @@
 import { DEFAULT_COUNT_COMMENTS } from './data.js';
+// import { eventListenerLoadComments } from './event-listener-picture.js';
 
 export function createPicture(photoObject) {
   const pictureElementTemplate = document.querySelector('#picture').content
@@ -64,7 +65,6 @@ export function createGalleryContent(modalElementPicture, currentPhoto) {
   const socialCommentCount = modalElementPicture.querySelector('.social__comment-count');
   socialCommentCount.classList.add('hidden'); // временно скрываем
   const commentsLoader = modalElementPicture.querySelector('.comments-loader');
-  commentsLoader.classList.add('hidden'); // временно скрываем
 
   const commentsList = currentPhoto.comments;
 
@@ -74,6 +74,14 @@ export function createGalleryContent(modalElementPicture, currentPhoto) {
 
   const socialCommentTotalCount = modalElementPicture.querySelector('.social__comment-total-count');
   socialCommentTotalCount.innerText = commentsList.length;
+
+  // console.log(socialCommentShownCountContent, commentsList.length, socialCommentShownCountContent === commentsList.length);
+
+  // if (socialCommentShownCountContent === commentsList.length) {
+    commentsLoader.classList.add('hidden');
+  // }
+
+  // eventListenerLoadComments(commentsLoader);
 
   const socialCommentsList = modalElementPicture.querySelector('.social__comments');
   socialCommentsList.innerHTML = '';
