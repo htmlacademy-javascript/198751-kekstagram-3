@@ -1,4 +1,4 @@
-import { DEFAULT_COUNT_COMMENTS } from './data.js'
+import { DEFAULT_COUNT_COMMENTS } from './data.js';
 
 export function createPicture(photoObject) {
   const pictureElementTemplate = document.querySelector('#picture').content
