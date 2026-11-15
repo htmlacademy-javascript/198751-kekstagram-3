@@ -78,7 +78,7 @@ export function createGalleryContent(modalElementPicture, currentPhoto) {
   // console.log(socialCommentShownCountContent, commentsList.length, socialCommentShownCountContent === commentsList.length);
 
   // if (socialCommentShownCountContent === commentsList.length) {
-    commentsLoader.classList.add('hidden');
+  commentsLoader.classList.add('hidden');
   // }
 
   // eventListenerLoadComments(commentsLoader);

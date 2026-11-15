@@ -33,8 +33,8 @@ function showModal(e, modalElementPicture, target, arrayPhotos) {
     onclose();
   }
 
-  function handleKeyPress(e) {
-    if (e.key === 'Escape') {
+  function handleKeyPress(evt) {
+    if (evt.key === 'Escape') {
       onclose();
     }
   }
