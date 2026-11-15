@@ -1,40 +1,43 @@
-import { createCommentElement } from './create-components.js';
+import { createGalleryContent } from './create-components.js';
+
+// Модальное окно галлереи
+
+function toggleClassForModal(modalElementPicture) {
+  document.body.classList.toggle('modal-open');
+  modalElementPicture.classList.toggle('hidden');
+}
+
+function closeModal(modalElementPicture) {
+  toggleClassForModal(modalElementPicture);
+}
+
+function showModal(e, modalElementPicture, target, arrayPhotos) {
+  e.preventDefault();
+  toggleClassForModal(modalElementPicture);
+
+  const link = target.closest('.picture');
+  const id = link.id;
+  const currentPhoto = arrayPhotos[id];
+
+  createGalleryContent(modalElementPicture, currentPhoto);
+
+  const closeButton = modalElementPicture.querySelector('.big-picture__cancel');
+  function handleClickClose() {
+    closeModal(modalElementPicture);
+    closeButton.removeEventListener('click', handleClickClose);
+  }
+
+  closeButton.addEventListener('click', handleClickClose);
+}
 
 export function eventListenerPicture(picturesContainer, arrayPhotos, modalElementPicture) {
 
-  function handleClick(e) {
+  function handleClickGallery(e) {
     const target = e.target;
-    if (target.classList.contains('picture__img')) {
-      e.preventDefault();
-      const link = target.closest('.picture');
-      const id = link.id;
-
-      const currentPhoto = arrayPhotos[id];
-
-      const bigPictureImages = modalElementPicture.querySelector('.big-picture__img img');
-      bigPictureImages.src = currentPhoto.url;
-      bigPictureImages.alt = currentPhoto.description;
-
-      const likesCount = modalElementPicture.querySelector('.likes-count');
-      likesCount.innerText = currentPhoto.likes;
-
-      const socialCommentShownCount = modalElementPicture.querySelector('.social__comment-shown-count');
-      socialCommentShownCount.innerText = '5';
-
-      const socialCommentTotalCount = modalElementPicture.querySelector('.social__comment-total-count');
-      socialCommentTotalCount.innerText = currentPhoto.comments.length;
-
-      modalElementPicture.classList.remove('hidden');
-
-      const socialCommentsList = modalElementPicture.querySelector('.social__comments');
-      socialCommentsList.innerHTML = '';
-      const commentsListFragment = document.createDocumentFragment();
-      currentPhoto.comments.forEach((element) => {
-        commentsListFragment.append(createCommentElement(element.avatar, element.name, element.message));
-      });
-      socialCommentsList.append(commentsListFragment);
+    if (target.closest('.picture')) {
+      showModal(e, modalElementPicture, target, arrayPhotos);
     }
   }
 
-  picturesContainer.addEventListener('click', handleClick);
+  picturesContainer.addEventListener('click', handleClickGallery);
 }
