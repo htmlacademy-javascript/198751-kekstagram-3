@@ -22,11 +22,24 @@ function showModal(e, modalElementPicture, target, arrayPhotos) {
   createGalleryContent(modalElementPicture, currentPhoto);
 
   const closeButton = modalElementPicture.querySelector('.big-picture__cancel');
-  function handleClickClose() {
+
+  function onclose() {
     closeModal(modalElementPicture);
     closeButton.removeEventListener('click', handleClickClose);
+    document.removeEventListener('keydown', handleKeyPress);
   }
 
+  function handleClickClose() {
+    onclose();
+  }
+
+  function handleKeyPress(evt) {
+    if (evt.key === 'Escape') {
+      onclose();
+    }
+  }
+
+  document.addEventListener('keydown', handleKeyPress);
   closeButton.addEventListener('click', handleClickClose);
 }
 
@@ -41,3 +54,7 @@ export function eventListenerPicture(picturesContainer, arrayPhotos, modalElemen
 
   picturesContainer.addEventListener('click', handleClickGallery);
 }
+
+// export function eventListenerLoadComments(commentsLoader) {
+//   commentsLoader.addEventListener('click', () => console.log(commentsLoader));
+// }
