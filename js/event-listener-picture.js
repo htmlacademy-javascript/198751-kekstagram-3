@@ -54,7 +54,3 @@ export function eventListenerPicture(picturesContainer, arrayPhotos, modalElemen
 
   picturesContainer.addEventListener('click', handleClickGallery);
 }
-
-// export function eventListenerLoadComments(commentsLoader) {
-//   commentsLoader.addEventListener('click', () => console.log(commentsLoader));
-// }

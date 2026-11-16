@@ -1,5 +1,4 @@
 import { DEFAULT_COUNT_COMMENTS } from './data.js';
-// import { eventListenerLoadComments } from './event-listener-picture.js';
 
 export function createPicture(photoObject) {
   const pictureElementTemplate = document.querySelector('#picture').content
@@ -57,39 +56,37 @@ export function createGalleryContent(modalElementPicture, currentPhoto) {
   bigPictureImages.alt = currentPhoto.description;
 
   const likesCount = modalElementPicture.querySelector('.likes-count');
-  likesCount.innerText = currentPhoto.likes;
-
   const socialCaption = modalElementPicture.querySelector('.social__caption');
-  socialCaption.innerText = currentPhoto.description;
-
-  const socialCommentCount = modalElementPicture.querySelector('.social__comment-count');
-  socialCommentCount.classList.add('hidden'); // временно скрываем
   const commentsLoader = modalElementPicture.querySelector('.comments-loader');
-
   const commentsList = currentPhoto.comments;
-
-  const socialCommentShownCountContent = commentsList.length > DEFAULT_COUNT_COMMENTS ? DEFAULT_COUNT_COMMENTS : commentsList.length;
+  let socialCommentShownCountContent = commentsList.length > DEFAULT_COUNT_COMMENTS ? DEFAULT_COUNT_COMMENTS : commentsList.length;
   const socialCommentShownCount = modalElementPicture.querySelector('.social__comment-shown-count');
-  socialCommentShownCount.innerText = socialCommentShownCountContent;
-
   const socialCommentTotalCount = modalElementPicture.querySelector('.social__comment-total-count');
-  socialCommentTotalCount.innerText = commentsList.length;
-
-  // console.log(socialCommentShownCountContent, commentsList.length, socialCommentShownCountContent === commentsList.length);
-
-  // if (socialCommentShownCountContent === commentsList.length) {
-  commentsLoader.classList.add('hidden');
-  // }
-
-  // eventListenerLoadComments(commentsLoader);
-
   const socialCommentsList = modalElementPicture.querySelector('.social__comments');
   socialCommentsList.innerHTML = '';
   const commentsListFragment = document.createDocumentFragment();
+  let startComments = 0;
+  let endComments = startComments + socialCommentShownCountContent;
 
-  const countComments = commentsList.length > DEFAULT_COUNT_COMMENTS ? DEFAULT_COUNT_COMMENTS : commentsList.length; // по клику на "Загрузить еще" эта переменная будет меняться
-  const startComments = 0; // по клику на "Загрузить еще" эта переменная будет меняться
-  const endComments = startComments + countComments;
+  likesCount.innerText = currentPhoto.likes;
+  socialCaption.innerText = currentPhoto.description;
+
+  socialCommentShownCount.innerText = socialCommentShownCountContent;
+
+  socialCommentTotalCount.innerText = commentsList.length;
+
+  commentsLoader.classList.toggle('hidden', socialCommentShownCountContent === commentsList.length);
+
+  function handleCommentsLoader() {
+    socialCommentShownCountContent = socialCommentShownCountContent + DEFAULT_COUNT_COMMENTS > commentsList.length ? commentsList.length : socialCommentShownCountContent + DEFAULT_COUNT_COMMENTS;
+    socialCommentShownCount.innerText = socialCommentShownCountContent
+    startComments = endComments;
+    endComments = socialCommentShownCountContent;
+    socialCommentsList.append(createCommentsList(startComments, endComments, commentsList, commentsListFragment));
+    commentsLoader.classList.toggle('hidden', socialCommentShownCountContent === commentsList.length);
+  }
+
+  commentsLoader.addEventListener('click', handleCommentsLoader);
 
   socialCommentsList.append(createCommentsList(startComments, endComments, commentsList, commentsListFragment));
 }
