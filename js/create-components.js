@@ -79,7 +79,7 @@ export function createGalleryContent(modalElementPicture, currentPhoto) {
 
   function handleCommentsLoader() {
     socialCommentShownCountContent = socialCommentShownCountContent + DEFAULT_COUNT_COMMENTS > commentsList.length ? commentsList.length : socialCommentShownCountContent + DEFAULT_COUNT_COMMENTS;
-    socialCommentShownCount.innerText = socialCommentShownCountContent
+    socialCommentShownCount.innerText = socialCommentShownCountContent;
     startComments = endComments;
     endComments = socialCommentShownCountContent;
     socialCommentsList.append(createCommentsList(startComments, endComments, commentsList, commentsListFragment));
@@ -92,5 +92,5 @@ export function createGalleryContent(modalElementPicture, currentPhoto) {
 
   return function () {
     commentsLoader.removeEventListener('click', handleCommentsLoader);
-  }
+  };
 }
