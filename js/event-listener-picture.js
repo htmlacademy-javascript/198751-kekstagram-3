@@ -19,7 +19,7 @@ function showModal(e, modalElementPicture, target, arrayPhotos) {
   const id = link.id;
   const currentPhoto = arrayPhotos[id];
 
-  createGalleryContent(modalElementPicture, currentPhoto);
+  const removeCommentsLoaderListener = createGalleryContent(modalElementPicture, currentPhoto);
 
   const closeButton = modalElementPicture.querySelector('.big-picture__cancel');
 
@@ -27,6 +27,7 @@ function showModal(e, modalElementPicture, target, arrayPhotos) {
     closeModal(modalElementPicture);
     closeButton.removeEventListener('click', handleClickClose);
     document.removeEventListener('keydown', handleKeyPress);
+    removeCommentsLoaderListener();
   }
 
   function handleClickClose() {

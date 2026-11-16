@@ -89,4 +89,8 @@ export function createGalleryContent(modalElementPicture, currentPhoto) {
   commentsLoader.addEventListener('click', handleCommentsLoader);
 
   socialCommentsList.append(createCommentsList(startComments, endComments, commentsList, commentsListFragment));
+
+  return function () {
+    commentsLoader.removeEventListener('click', handleCommentsLoader);
+  }
 }
