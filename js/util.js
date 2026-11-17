@@ -18,3 +18,12 @@ export function getRandomNumberInRange(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 
 }
+
+export function toggleClassForModal(modalElement) {
+  document.body.classList.toggle('modal-open');
+  modalElement.classList.toggle('hidden');
+}
+
+export function closeModal(modalElementPicture) {
+  toggleClassForModal(modalElementPicture);
+}

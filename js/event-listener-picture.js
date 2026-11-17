@@ -1,15 +1,7 @@
 import { createGalleryContent } from './create-components.js';
+import { toggleClassForModal, closeModal } from './util.js';
 
 // Модальное окно галлереи
-
-function toggleClassForModal(modalElementPicture) {
-  document.body.classList.toggle('modal-open');
-  modalElementPicture.classList.toggle('hidden');
-}
-
-function closeModal(modalElementPicture) {
-  toggleClassForModal(modalElementPicture);
-}
 
 function showModal(e, modalElementPicture, target, arrayPhotos) {
   e.preventDefault();
@@ -23,7 +15,7 @@ function showModal(e, modalElementPicture, target, arrayPhotos) {
 
   const closeButton = modalElementPicture.querySelector('.big-picture__cancel');
 
-  function onclose() {
+  function onClose() {
     closeModal(modalElementPicture);
     closeButton.removeEventListener('click', handleClickClose);
     document.removeEventListener('keydown', handleKeyPress);
@@ -31,12 +23,12 @@ function showModal(e, modalElementPicture, target, arrayPhotos) {
   }
 
   function handleClickClose() {
-    onclose();
+    onClose();
   }
 
   function handleKeyPress(evt) {
     if (evt.key === 'Escape') {
-      onclose();
+      onClose();
     }
   }
 
