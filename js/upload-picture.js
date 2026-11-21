@@ -1,14 +1,14 @@
 import { toggleModal } from './util.js';
 import { initValidateForm } from './user-form.js';
 
-
 export function uploadPicture() {
   const overlay = document.querySelector('.img-upload__overlay');
   const imgUploadInput = document.querySelector('.img-upload__input');
   const imgUploadCancel = document.querySelector('.img-upload__cancel');
   const textHashtags = document.querySelector('.text__hashtags');
   const textDescription = document.querySelector('.text__description');
-  let disposeValidation = null;
+
+  initValidateForm();
 
   function handleStopPagination(evt) {
     evt.stopPropagation();
@@ -21,8 +21,6 @@ export function uploadPicture() {
     imgUploadInput.value = '';
     textHashtags.removeEventListener('keydown', handleStopPagination);
     textDescription.removeEventListener('keydown', handleStopPagination);
-    disposeValidation?.();
-    disposeValidation = null;
   }
 
   function handleImgUploadCancel() {
@@ -42,7 +40,6 @@ export function uploadPicture() {
       document.addEventListener('keydown', handleKeyPress);
       textHashtags.addEventListener('keydown', handleStopPagination);
       textDescription.addEventListener('keydown', handleStopPagination);
-      disposeValidation = initValidateForm();
     }
   };
 

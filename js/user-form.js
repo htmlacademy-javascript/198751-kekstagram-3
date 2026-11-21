@@ -1,6 +1,7 @@
 /* global Pristine:readonly */
 export function initValidateForm() {
   const loadImgForm = document.querySelector('.setup-wizard-form');
+  let textErrorHashtag = '';
 
   const pristine = new Pristine(loadImgForm, {
     classTo: 'img-upload__field-wrapper',
@@ -8,20 +9,44 @@ export function initValidateForm() {
     errorTextClass: 'img-upload__field-wrapper--error',
   });
 
-  function validateHashtags(value) {
-    const arrayValues = value.split(/\s+/);
+  const validateHashtags = (value) => {
     const hashtag = /^#[a-zа-яё\d]{1,19}$/i;
+    const arrayValues = value.split(/\s+/);
 
-    for (let i = 0; i < arrayValues.length; i++) {
-      if (arrayValues[i] === '') {
-        break;
-      }
+    const clearArrayValues = arrayValues.filter((val) => val !== '');
+    /*
+    Вопрос наставнику:
+    Или эту строку убрать и использовать trim перед преобразованием value в массив?
+    */
+    /*
+    Ответ ИИ:
+    «И по вашему вопросу в комментарии на js/user-form.js:17: filter от пустых строк и trim — не альтернативы. trim убирает пробелы только по краям, а внутри строки двойные пробелы останутся и дадут пустые элементы после split. Так что filter (или split с последующей очисткой) нужен в любом случае; trim можно добавить дополнительно, чтобы value из одних пробелов давал пустой массив.»
+    В данном случае я склоняюсь верить, так как воспроизводится верно. Но есть сомнения, так как ответ другого ИИ сказал переберать массив. (не сохранил ответ :( )
+    */
 
-      const isValid = hashtag.test(arrayValues[i]);
+    if (clearArrayValues.length > 5) {
+      textErrorHashtag = 'Превышено количество хэштегов.';
+      return false;
+    }
+
+    const seen = new Set();
+
+    for (let i = 0; i < clearArrayValues.length; i++) {
+      const isValid = hashtag.test(clearArrayValues[i]);
 
       if (!isValid) {
+        textErrorHashtag = 'Введён невалидный хэштег.';
         return false;
       }
+
+      const loverCase = clearArrayValues[i].toLowerCase();
+
+      if (seen.has(loverCase)) {
+        textErrorHashtag = 'Хэштеги повторяются.';
+        return false;
+      }
+
+      seen.add(loverCase);
     }
 
     return true;
@@ -30,18 +55,27 @@ export function initValidateForm() {
   pristine.addValidator(
     loadImgForm.querySelector('.text__hashtags'),
     validateHashtags,
-    'Ошибка'
+    () => textErrorHashtag
+  );
+
+  function validateDescription(value) {
+    return value.length <= 140;
+  };
+
+  pristine.addValidator(
+    loadImgForm.querySelector('.text__description'),
+    validateDescription,
+    'Длина комментария больше 140 символов.'
   );
 
   function handleForm(evt) {
     evt.preventDefault();
-    pristine.validate();
-  }
+    const isValidForm = pristine.validate();
+
+    console.log(isValidForm ? 'Отправляем' : 'Не отправляем');
+
+  };
 
   loadImgForm.addEventListener('submit', handleForm);
 
-  return () => {
-    loadImgForm.removeEventListener('submit', handleForm);
-    pristine.destroy();
-  };
 };
