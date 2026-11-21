@@ -1,5 +1,5 @@
 import { createGalleryContent } from './create-components.js';
-import { toggleClassForModal, closeModal } from './util.js';
+import { toggleClassForModal, toggleModal } from './util.js';
 
 // Модальное окно галлереи
 
@@ -16,7 +16,7 @@ function showModal(e, modalElementPicture, target, arrayPhotos) {
   const closeButton = modalElementPicture.querySelector('.big-picture__cancel');
 
   function onClose() {
-    closeModal(modalElementPicture);
+    toggleModal(modalElementPicture);
     closeButton.removeEventListener('click', handleClickClose);
     document.removeEventListener('keydown', handleKeyPress);
     removeCommentsLoaderListener();

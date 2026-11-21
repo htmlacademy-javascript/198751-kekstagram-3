@@ -24,6 +24,6 @@ export function toggleClassForModal(modalElement) {
   modalElement.classList.toggle('hidden');
 }
 
-export function closeModal(modalElementPicture) {
+export function toggleModal(modalElementPicture) {
   toggleClassForModal(modalElementPicture);
 }
