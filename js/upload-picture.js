@@ -8,7 +8,7 @@ export function uploadPicture() {
   const textHashtags = document.querySelector('.text__hashtags');
   const textDescription = document.querySelector('.text__description');
 
-  initValidateForm();
+  const pristine = initValidateForm();
 
   function handleStopPagination(evt) {
     evt.stopPropagation();
@@ -18,7 +18,10 @@ export function uploadPicture() {
     toggleModal(overlay);
     imgUploadCancel.removeEventListener('click', handleImgUploadCancel);
     document.removeEventListener('keydown', handleKeyPress);
+    pristine.reset();
     imgUploadInput.value = '';
+    textHashtags.value = '';
+    textDescription.value = '';
     textHashtags.removeEventListener('keydown', handleStopPagination);
     textDescription.removeEventListener('keydown', handleStopPagination);
   }

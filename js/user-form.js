@@ -78,4 +78,5 @@ export function initValidateForm() {
 
   loadImgForm.addEventListener('submit', handleForm);
 
+  return pristine;
 };
