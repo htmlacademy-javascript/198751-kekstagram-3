@@ -1,4 +1,4 @@
-import { COUNT_PHOTOS, MIN_LIKES, MAX_LIKES, MIN_URL_AVATAR, MAX_URL_AVATAR  } from './const.js';
+import { COUNT_PHOTOS, MIN_LIKES, MAX_LIKES, MIN_URL_AVATAR, MAX_URL_AVATAR } from './const.js';
 import { IMAGE_DESCRIPTIONS, MESSAGES, NAMES } from './data.js';
 import { createGallery } from './create-object-components.js';
 import { createPicture } from './create-components.js';

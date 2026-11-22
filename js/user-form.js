@@ -1,4 +1,3 @@
-/* global Pristine:readonly */
 export function initValidateForm() {
   const loadImgForm = document.querySelector('.setup-wizard-form');
   let textErrorHashtag = '';
@@ -50,7 +49,7 @@ export function initValidateForm() {
     }
 
     return true;
-  }
+  };
 
   pristine.addValidator(
     loadImgForm.querySelector('.text__hashtags'),
@@ -60,7 +59,7 @@ export function initValidateForm() {
 
   function validateDescription(value) {
     return value.length <= 140;
-  };
+  }
 
   pristine.addValidator(
     loadImgForm.querySelector('.text__description'),
@@ -72,11 +71,12 @@ export function initValidateForm() {
     evt.preventDefault();
     const isValidForm = pristine.validate();
 
+    // eslint-disable-next-line no-console
     console.log(isValidForm ? 'Отправляем' : 'Не отправляем');
 
-  };
+  }
 
   loadImgForm.addEventListener('submit', handleForm);
 
   return pristine;
-};
+}

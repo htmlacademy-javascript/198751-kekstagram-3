@@ -28,7 +28,7 @@ export function uploadPicture() {
 
   function handleImgUploadCancel() {
     onClose();
-  };
+  }
 
   function handleKeyPress(evt) {
     if (evt.key === 'Escape') {
@@ -44,7 +44,7 @@ export function uploadPicture() {
       textHashtags.addEventListener('keydown', handleStopPagination);
       textDescription.addEventListener('keydown', handleStopPagination);
     }
-  };
+  }
 
   imgUploadInput.addEventListener('change', handleChangeUploadInput);
 }
