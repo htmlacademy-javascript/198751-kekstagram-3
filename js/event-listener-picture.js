@@ -3,8 +3,8 @@ import { toggleClassForModal, toggleModal } from './util.js';
 
 // Модальное окно галлереи
 
-function showModal(e, modalElementPicture, target, arrayPhotos) {
-  e.preventDefault();
+function showModal(evt, modalElementPicture, target, arrayPhotos) {
+  evt.preventDefault();
   toggleClassForModal(modalElementPicture);
 
   const link = target.closest('.picture');
@@ -26,8 +26,8 @@ function showModal(e, modalElementPicture, target, arrayPhotos) {
     onClose();
   }
 
-  function handleKeyPress(evt) {
-    if (evt.key === 'Escape') {
+  function handleKeyPress(evtKeyPress) {
+    if (evtKeyPress.key === 'Escape') {
       onClose();
     }
   }
@@ -38,10 +38,10 @@ function showModal(e, modalElementPicture, target, arrayPhotos) {
 
 export function eventListenerPicture(picturesContainer, arrayPhotos, modalElementPicture) {
 
-  function handleClickGallery(e) {
-    const target = e.target;
+  function handleClickGallery(evt) {
+    const target = evt.target;
     if (target.closest('.picture')) {
-      showModal(e, modalElementPicture, target, arrayPhotos);
+      showModal(evt, modalElementPicture, target, arrayPhotos);
     }
   }
 

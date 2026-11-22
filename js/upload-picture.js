@@ -33,8 +33,8 @@ export function uploadPicture() {
     }
   }
 
-  function handleChangeUploadInput(e) {
-    if (e.target.value) {
+  function handleChangeUploadInput(evt) {
+    if (evt.target.value) {
       toggleModal(overlay);
       imgUploadCancel.addEventListener('click', handleImgUploadCancel);
       document.addEventListener('keydown', handleKeyPress);
