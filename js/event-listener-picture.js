@@ -1,18 +1,10 @@
 import { createGalleryContent } from './create-components.js';
+import { toggleClassForModal, toggleModal } from './util.js';
 
 // Модальное окно галлереи
 
-function toggleClassForModal(modalElementPicture) {
-  document.body.classList.toggle('modal-open');
-  modalElementPicture.classList.toggle('hidden');
-}
-
-function closeModal(modalElementPicture) {
-  toggleClassForModal(modalElementPicture);
-}
-
-function showModal(e, modalElementPicture, target, arrayPhotos) {
-  e.preventDefault();
+function showModal(evt, modalElementPicture, target, arrayPhotos) {
+  evt.preventDefault();
   toggleClassForModal(modalElementPicture);
 
   const link = target.closest('.picture');
@@ -23,20 +15,20 @@ function showModal(e, modalElementPicture, target, arrayPhotos) {
 
   const closeButton = modalElementPicture.querySelector('.big-picture__cancel');
 
-  function onclose() {
-    closeModal(modalElementPicture);
+  function onClose() {
+    toggleModal(modalElementPicture);
     closeButton.removeEventListener('click', handleClickClose);
     document.removeEventListener('keydown', handleKeyPress);
     removeCommentsLoaderListener();
   }
 
   function handleClickClose() {
-    onclose();
+    onClose();
   }
 
-  function handleKeyPress(evt) {
-    if (evt.key === 'Escape') {
-      onclose();
+  function handleKeyPress(evtKeyPress) {
+    if (evtKeyPress.key === 'Escape') {
+      onClose();
     }
   }
 
@@ -46,10 +38,10 @@ function showModal(e, modalElementPicture, target, arrayPhotos) {
 
 export function eventListenerPicture(picturesContainer, arrayPhotos, modalElementPicture) {
 
-  function handleClickGallery(e) {
-    const target = e.target;
+  function handleClickGallery(evt) {
+    const target = evt.target;
     if (target.closest('.picture')) {
-      showModal(e, modalElementPicture, target, arrayPhotos);
+      showModal(evt, modalElementPicture, target, arrayPhotos);
     }
   }
 
